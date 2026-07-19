@@ -1,0 +1,20 @@
+# Web framework
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+
+# Database
+pymongo==4.10.1
+
+# Data loading / exploration
+pandas==2.2.3
+
+# LLM / agent stack (Anthropic Claude)
+langchain==0.3.14
+langchain-anthropic==0.3.1
+langgraph==0.2.62
+anthropic==0.42.0
+
+# Config & validation
+pydantic==2.10.4
+pydantic-settings==2.7.1
+python-dotenv==1.0.1
