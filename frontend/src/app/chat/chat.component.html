@@ -1,0 +1,56 @@
+<div class="chat">
+  <header class="chat__header">
+    <h1>Procurement AI Assistant</h1>
+    <p>Ask about State of California large purchases (2012–2015).</p>
+  </header>
+
+  <div class="chat__messages">
+    @if (messages.length === 0) {
+      <div class="empty">
+        <p>Try one of these:</p>
+        <div class="examples">
+          @for (ex of examples; track ex) {
+            <button type="button" class="example" (click)="useExample(ex)">
+              {{ ex }}
+            </button>
+          }
+        </div>
+      </div>
+    }
+
+    @for (m of messages; track $index) {
+      <div class="msg" [class.msg--user]="m.role === 'user'"
+                       [class.msg--assistant]="m.role === 'assistant'">
+        <div class="msg__role">{{ m.role === 'user' ? 'You' : 'Assistant' }}</div>
+        <div class="msg__bubble">{{ m.content }}</div>
+      </div>
+    }
+
+    @if (loading) {
+      <div class="msg msg--assistant">
+        <div class="msg__role">Assistant</div>
+        <div class="msg__bubble msg__bubble--typing">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    }
+
+    @if (error) {
+      <div class="error">{{ error }}</div>
+    }
+
+    <div #scrollAnchor></div>
+  </div>
+
+  <form class="chat__input" (ngSubmit)="send()">
+    <input
+      type="text"
+      name="draft"
+      [(ngModel)]="draft"
+      [disabled]="loading"
+      placeholder="Ask a question about the procurement data…"
+      autocomplete="off"
+    />
+    <button type="submit" [disabled]="loading || !draft.trim()">Send</button>
+  </form>
+</div>
